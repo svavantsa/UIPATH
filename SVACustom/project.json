@@ -1,13 +1,12 @@
 {
-  "name": "WeeklyCitiCreditCardTransactions_GatherDaily",
-  "description": "This process logs on to the Citi Credit Card site daily and gathers the transactions of that day and stores them in an Orchestrator Queue.",
-  "main": "Main.xaml",
+  "name": "SVACustom",
+  "description": "WIth multiple activities for sundry stuff",
+  "main": "NewActivity.xaml",
   "dependencies": {
-    "UiPath.Credentials.Activities": "[1.1.6479.13204]",
-    "UiPath.Excel.Activities": "[2.6.2]",
-    "UiPath.Mail.Activities": "[1.5.1]",
-    "UiPath.System.Activities": "[19.7.0]",
-    "UiPath.UIAutomation.Activities": "[19.7.0]"
+    "UiPath.Excel.Activities": "2.6.2",
+    "UiPath.Mail.Activities": "1.5.1",
+    "UiPath.System.Activities": "19.7.0",
+    "UiPath.UIAutomation.Activities": "19.7.0"
   },
   "webServices": [],
   "schemaVersion": "4.0",
@@ -26,15 +25,11 @@
   },
   "designOptions": {
     "projectProfile": "Developement",
-    "outputType": "Process",
+    "outputType": "Library",
     "libraryOptions": {
       "includeOriginalXaml": false,
       "privateWorkflows": []
     }
-  },
-  "arguments": {
-    "input": [],
-    "output": []
   },
   "expressionLanguage": "VisualBasic"
 }
