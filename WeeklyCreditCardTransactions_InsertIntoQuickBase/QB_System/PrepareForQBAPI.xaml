@@ -8,7 +8,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>256,163</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>336,1136</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>PrepareForQBAPI_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -56,6 +56,7 @@
       <AssemblyReference>System.ServiceModel</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="PrepareForQBAPI" sap:VirtualizedContainerService.HintSize="296,1056" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -135,7 +136,7 @@
         <OutArgument x:TypeArguments="x:String">[qb_Cardname]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("Cardname").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("CardName").ToString]</InArgument>
       </Assign.Value>
     </Assign>
     <Assign sap:VirtualizedContainerService.HintSize="258,64" sap2010:WorkflowViewState.IdRef="Assign_9">
