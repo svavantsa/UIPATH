@@ -1,12 +1,13 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="AddTransactionsToQueue" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_CitiTransactionsDT" Type="InArgument(sd:DataTable)" />
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_CardName" Type="InArgument(x:String)" />
+    <x:Property Name="in_TransactionsDT" Type="InArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>560,957</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>560,866</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>AddTransactionsToQueue_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="22">
@@ -58,7 +59,7 @@
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="AddTransactionsToQueue" sap:VirtualizedContainerService.HintSize="520,877" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="AddTransactionsToQueue" sap:VirtualizedContainerService.HintSize="520,786" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="ui:GenericValue" Name="todaysDate" />
     </Sequence.Variables>
@@ -115,22 +116,22 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:CommentOut>
-    <If Condition="[in_CitiTransactionsDT isnot Nothing]" sap:VirtualizedContainerService.HintSize="482,694" sap2010:WorkflowViewState.IdRef="If_2">
+    <If Condition="[in_TransactionsDT isnot Nothing]" sap:VirtualizedContainerService.HintSize="482,603" sap2010:WorkflowViewState.IdRef="If_2">
       <If.Then>
-        <Sequence sap:VirtualizedContainerService.HintSize="341,546" sap2010:WorkflowViewState.IdRef="Sequence_6">
+        <Sequence sap:VirtualizedContainerService.HintSize="341,455" sap2010:WorkflowViewState.IdRef="Sequence_6">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
           <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="303,61" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="Adding Posted Transactions to Orchestrator Queue" />
-          <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[in_CitiTransactionsDT]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="303,353" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+          <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[in_TransactionsDT]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="303,262" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
             <ui:ForEachRow.Body>
               <ActivityAction x:TypeArguments="sd:DataRow">
                 <ActivityAction.Argument>
                   <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
                 </ActivityAction.Argument>
-                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="254,205" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="254,114" sap2010:WorkflowViewState.IdRef="Sequence_2">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="ui:GenericValue" Name="thisDate" />
                   </Sequence.Variables>
@@ -146,42 +147,9 @@
                       <InArgument x:TypeArguments="x:String" x:Key="Description">[row("Descriptionsort by descending").ToString.Trim]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="Amount">[row("Amountsort by descending").ToString]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="Balance">[row("Running Balance").ToString]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="CardName">Citi-0823</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="CardName">[in_CardName]</InArgument>
                     </ui:AddQueueItem.ItemInformation>
                   </ui:AddQueueItem>
-                  <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="216,51" sap2010:WorkflowViewState.IdRef="CommentOut_1">
-                    <ui:CommentOut.Body>
-                      <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="296,243" sap2010:WorkflowViewState.IdRef="Sequence_3">
-                        <sap:WorkflowViewStateService.ViewState>
-                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                          </scg:Dictionary>
-                        </sap:WorkflowViewStateService.ViewState>
-                        <Assign sap:VirtualizedContainerService.HintSize="258,60" sap2010:WorkflowViewState.IdRef="Assign_4">
-                          <Assign.To>
-                            <OutArgument x:TypeArguments="ui:GenericValue">[thisDate]</OutArgument>
-                          </Assign.To>
-                          <Assign.Value>
-                            <InArgument x:TypeArguments="ui:GenericValue" xml:space="preserve">[row("Date  sort by descending").ToString]</InArgument>
-                          </Assign.Value>
-                        </Assign>
-                        <If Condition="[todaysDate=thisDate]" sap:VirtualizedContainerService.HintSize="258,51" sap2010:WorkflowViewState.IdRef="If_1">
-                          <sap:WorkflowViewStateService.ViewState>
-                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                            </scg:Dictionary>
-                          </sap:WorkflowViewStateService.ViewState>
-                        </If>
-                      </Sequence>
-                    </ui:CommentOut.Body>
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                  </ui:CommentOut>
                 </Sequence>
               </ActivityAction>
             </ui:ForEachRow.Body>
