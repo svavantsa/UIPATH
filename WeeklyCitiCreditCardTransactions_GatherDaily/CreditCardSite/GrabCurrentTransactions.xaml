@@ -121,7 +121,7 @@
               </sap:WorkflowViewStateService.ViewState>
               <ui:UiElementExists DisplayName="Element Exists" Exists="[blnPostedTransactionsExist]" sap:VirtualizedContainerService.HintSize="705,106" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
                 <ui:UiElementExists.Target>
-                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="7377a21b6287fe22ed2992683a38778d" Selector="&lt;webctrl id='postedTransactionTable' tag='TABLE' /&gt;" TimeoutMS="3000" WaitForReady="INTERACTIVE" />
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="7377a21b6287fe22ed2992683a38778d" Selector="&lt;webctrl aaname=' Posted Total ' tag='SPAN' /&gt;&#xD;&#xA;" TimeoutMS="3000" WaitForReady="INTERACTIVE" />
                 </ui:UiElementExists.Target>
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
