@@ -7,7 +7,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>560,866</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>560,966</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>AddTransactionsToQueue_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="22">
@@ -36,7 +36,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="40">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="21">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -57,11 +57,12 @@
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="AddTransactionsToQueue" sap:VirtualizedContainerService.HintSize="520,786" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="AddTransactionsToQueue" sap:VirtualizedContainerService.HintSize="520,886" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="ui:GenericValue" Name="todaysDate" />
+      <Variable x:TypeArguments="sd:DataTable" Name="tmpDT" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -116,25 +117,30 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:CommentOut>
-    <If Condition="[in_TransactionsDT isnot Nothing]" sap:VirtualizedContainerService.HintSize="482,603" sap2010:WorkflowViewState.IdRef="If_2">
+    <If Condition="[in_TransactionsDT isnot Nothing]" sap:VirtualizedContainerService.HintSize="482,703" sap2010:WorkflowViewState.IdRef="If_2">
       <If.Then>
-        <Sequence sap:VirtualizedContainerService.HintSize="341,455" sap2010:WorkflowViewState.IdRef="Sequence_6">
+        <Sequence sap:VirtualizedContainerService.HintSize="341,555" sap2010:WorkflowViewState.IdRef="Sequence_6">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
           <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="303,61" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="Adding Posted Transactions to Orchestrator Queue" />
-          <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[in_TransactionsDT]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="303,262" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+          <Assign sap:VirtualizedContainerService.HintSize="303,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+            <Assign.To>
+              <OutArgument x:TypeArguments="sd:DataTable">[tmpDT]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="sd:DataTable">[in_TransactionsDT]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[tmpDT]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="303,262" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
             <ui:ForEachRow.Body>
               <ActivityAction x:TypeArguments="sd:DataRow">
                 <ActivityAction.Argument>
                   <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
                 </ActivityAction.Argument>
                 <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="254,114" sap2010:WorkflowViewState.IdRef="Sequence_2">
-                  <Sequence.Variables>
-                    <Variable x:TypeArguments="ui:GenericValue" Name="thisDate" />
-                  </Sequence.Variables>
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -142,11 +148,11 @@
                   </sap:WorkflowViewStateService.ViewState>
                   <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue Item" sap:VirtualizedContainerService.HintSize="216,22" sap2010:WorkflowViewState.IdRef="AddQueueItem_1" Priority="Normal" QueueType="[in_Config(&quot;OrchestratorQueueName&quot;).ToString]">
                     <ui:AddQueueItem.ItemInformation>
-                      <InArgument x:TypeArguments="x:String" x:Key="Date">[row("Datesort by descending").ToString]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="Cardmember">[row("Cardmembersort by descending").ToString]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="Description">[row("Descriptionsort by descending").ToString.Trim]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="Amount">[row("Amountsort by descending").ToString]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="Balance">[row("Running Balance").ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="Date">[row(0).ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="Cardmember">[row(1).ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="Description">[row(2).ToString.Trim]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="Amount">[row(3).ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="Balance">[row(4).ToString]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="CardName">[in_CardName]</InArgument>
                     </ui:AddQueueItem.ItemInformation>
                   </ui:AddQueueItem>
